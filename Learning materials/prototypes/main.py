@@ -37,11 +37,19 @@ playerX = 10
 playerY = 2
 playerX_change = 0
 playerY_change = 0
+# Npc 
+npcImg = pygame.image.load('bill.png')
+billX = 40
+billY = 2
 
 
 # Defining a player function so that i can call this code in my while loop.
 def player(x,y):
     screen.blit(playerImg, (x, y))
+
+# Attempting to make an npc
+def bill():
+    screen.blit(npcImg, (billX,billY))
 
 # Setting up the while loop with an always true variable
 running = True
@@ -80,7 +88,17 @@ while running:
     # player function and movement
     playerY += playerY_change
     playerX += playerX_change
+    # These two if statements prevent the player from going off screen 
+    if playerX <= -20:
+        playerX = -20
+    elif playerX >= 1840:
+        playerX = 1840
+    if playerY <= 5:
+        playerY = 5
+    elif playerY >= 770:
+        playerY = 770
     player(playerX,playerY)
+    bill()
     # Updating the display every tick
     pygame.display.update()
 
