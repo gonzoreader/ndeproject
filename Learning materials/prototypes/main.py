@@ -35,6 +35,8 @@ def linesui():
 playerImg = pygame.image.load('player.png')
 playerX = 10
 playerY = 2
+playerX_change = 0
+playerY_change = 0
 
 
 # Defining a player function so that i can call this code in my while loop.
@@ -55,15 +57,29 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-        # if keystroke is pressed check whether it is right or left
-        #if event.type == pygame.KEYDOWN:
-            #if event.key == pygame.K_LEFT:                             ##########################################<---------------------- where i left off
+        # Player movement 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change = -0.4
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 0.4
+            if event.key == pygame.K_UP:
+                playerY_change = -0.4
+            if event.key == pygame.K_DOWN:
+                playerY_change = 0.4
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX_change = 0
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                playerY_change = 0
 
 
     
     # Calling the linesui function
     linesui()
-    # Calling the player function
+    # player function and movement
+    playerY += playerY_change
+    playerX += playerX_change
     player(playerX,playerY)
     # Updating the display every tick
     pygame.display.update()
