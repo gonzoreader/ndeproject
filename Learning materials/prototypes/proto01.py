@@ -2,7 +2,7 @@
 
 # Importing Pygame
 import pygame
-import random
+import maps
 
 # Initializing Pygame
 pygame.init()
@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((1920, 1080))
 
 # Color variables to save time
 black = (0, 0, 0)
-
+grey = (80,80,80)
 # Title and Icon
 pygame.display.set_caption("NDE Project")
 icon = pygame.image.load('skeleton.png')
@@ -23,8 +23,8 @@ pygame.mouse.set_visible(False)
 
 # Player
 playerImg = pygame.image.load('player.png')
-playerX = 10
-playerY = 2
+playerX = 81
+playerY = 549
 playerX_change = 0
 playerY_change = 0
 
@@ -47,11 +47,11 @@ running = True
 # Game loop
 while running:
     # Changing the color of the window
-    screen.fill((119, 221, 119))
-
+    screen.fill((119,119,119))
+    maps.map1()
     # tracking mouse pos
     mpos = pygame.mouse.get_pos()
-
+    print(mpos)
     # Event for loop. Pygame uses events for mouse movement, key presses etc.
     # All events get passed through this loop so that they are executed
     for event in pygame.event.get():
@@ -76,7 +76,7 @@ while running:
 
 
     
-
+    
     # player function and movement
     playerY += playerY_change
     playerX += playerX_change
