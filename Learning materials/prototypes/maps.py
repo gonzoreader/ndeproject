@@ -31,7 +31,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        map1()
+        map2()
         pygame.display.flip()
 
 if __name__ == '__main__': 

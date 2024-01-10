@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import pygame
-import maps
 
 pygame.init()
 
@@ -36,14 +35,16 @@ def map1():
     pygame.draw.line(screen, grey, (0, 0), (0, 1080), 100)
 
 
-def map2():
-    pygame.draw.rect(screen, grey, pygame.Rect(0, 0, 10, 10))
+def map2T():
+    pygame.draw.rect(screen, grey, pygame.Rect(0, 0, 700, 400))
+    pygame.draw.rect(screen, (grey), pygame.Rect(900, 0, 1230, 400))
+    pygame.draw.rect(screen, grey, pygame.Rect(0, 680, 1920, 400))
 
 
 current_level = 0
 maps_data = [
     map1,
-    map2,
+    map2T,
     # Add more maps as needed
 ]
 
@@ -53,6 +54,7 @@ while running:
     screen.fill((119, 119, 119))
 
     mpos = pygame.mouse.get_pos()
+    print(mpos)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -61,7 +63,7 @@ while running:
             if event.key == pygame.K_a:
                 playerX_change = -1
             if event.key == pygame.K_d:
-                playerX_change = 1
+                playerX_change = 2
             if event.key == pygame.K_w:
                 playerY_change = -1
             if event.key == pygame.K_s:
@@ -79,16 +81,35 @@ while running:
 
     playerY += playerY_change
     playerX += playerX_change
-
-    if playerX <= -20:
-        playerX = -20
-    elif playerX >= 1839:
-        playerX = 1839
-        current_level = 1
-    if playerY <= 5:
-        playerY = 5
-    elif playerY >= 1000:
-        playerY = 1000
+    # second map collision
+    if current_level == 1:
+        if playerX >= 1839:
+            playerX = 30
+            current_level = 2
+        elif playerY >= 630:
+            playerY = 630
+        if playerY <= 400 and playerX <= 690:
+            playerY = 400
+        if playerX <= 700 and playerY <= 390:
+            playerX = 700
+        if playerX >= 890 and playerY <= 400:
+            playerY = 400
+        if playerY <= 390 and playerX >= 877:
+            playerX = 877
+        if playerX <= 5:
+            current_level = 0
+            playerX = 1899
+    # first map collision
+    if current_level == 0:
+        if playerX <= 51:
+            playerX = 51
+        elif playerX >= 1900:
+            playerX = 10
+            current_level = 1
+        if playerY <= 401:
+            playerY = 401
+        elif playerY >= 630:
+            playerY = 630
 
     player(playerX, playerY)
 
