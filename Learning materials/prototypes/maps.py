@@ -12,7 +12,10 @@ def map1():
     pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 1920, 400), )
     pygame.draw.rect(screen, (grey), pygame.Rect(0, 680, 1920, 400), )
     pygame.draw.line(screen, (grey), (0, 0), (0, 1080), 100)
-
+    
+def map2():
+    pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 500, 400))   
+    pygame.draw.rect(screen, (grey), pygame.Rect(1920, 0, -500, 400))
 
 
 
