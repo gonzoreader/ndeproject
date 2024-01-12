@@ -47,22 +47,31 @@ def map2T():
     pygame.draw.rect(screen, grey, pygame.Rect(0, 680, 1920, 400))
 
 
-def map3():
+def map3msr():
     pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 200, 400))
     pygame.draw.rect(screen, (grey), pygame.Rect(0, 680, 200, 400))
     pygame.draw.rect(screen, grey, pygame.Rect(0, 900, 1920, 400))
+    pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 1920, 180))
+    pygame.draw.rect(screen, (grey), pygame.Rect(1720, 0, 200, 1080))
 
 
-def map4():
-    pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 1920, 200))
+def map4gate():
+    pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 700, 1080))
+    pygame.draw.rect(screen, (grey), pygame.Rect(900, 0, 1920, 1080))
+    pygame.draw.line(screen, (grey), (0,0), (1920,0), 20)
+
+def map5end():
+    pygame.draw.rect(screen, (grey), pygame.Rect(0, 0, 700, 1080))
+    pygame.draw.rect(screen, (grey), pygame.Rect(900, 0, 1920, 1080))
+
 
 
 current_level = 0
 maps_data = [
     map1,
     map2T,
-    map3,
-    map4,
+    map3msr,
+    map4gate,
     # Add more maps as needed
 ]
 
@@ -91,17 +100,29 @@ while running:
                 playerX_change = 0
             if event.key == pygame.K_w or event.key == pygame.K_s:
                 playerY_change = 0
+                
 
 
 
     if current_level == 0:
         # Displaying text on map1
-        display_text("WASD to move", (255, 255, 255), 800, 540)
-    if current_level == 2:
-        display_text('Theres gonna be some kind of monster here in the future', (grey), 800, 600)
+        display_text("WASD to move", (grey), 800, 540)
+    if current_level == 1:
+        display_text('Kill the Minotaur, get the key', (grey), 550, 550)
 
     playerY += playerY_change
     playerX += playerX_change
+    # gate map collision
+    if current_level == 3:
+        if playerX <= 701:
+            playerX = 701
+        if playerX >= 880:
+            playerX = 880
+        if playerY <= 11:
+            playerY = 11
+        if playerY >= 1070:
+            playerY = 20
+            current_level = 1
     # third map collision
     if current_level == 2:
         if playerX <= 195 and playerY >= 630:
@@ -117,6 +138,10 @@ while running:
             playerX = 1890
         if playerY >= 850 and playerX >= 201:
             playerY = 850
+        if playerY <= 181:
+            playerY = 181
+        if playerX >= 1699:
+            playerX = 1699
     # second map collision
     if current_level == 1:
         if playerX >= 1900:
