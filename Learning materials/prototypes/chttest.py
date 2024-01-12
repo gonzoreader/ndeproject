@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
 import pygame
+import logging
 
 pygame.init()
 
+# Initialize the logging module
+logging.basicConfig(filename='game_log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
+
 black = (0, 0, 0)
 grey = (80, 80, 80)
-
+game_over = False
 font = pygame.font.Font('Grand9K Pixel.ttf', 36)
 # creating the screen
 screen = pygame.display.set_mode((1920, 1080))
@@ -32,7 +36,7 @@ playerX_change = 0
 playerY_change = 0
 monsterX = 1200
 monsterY = 550
-monster_speed = 0.3
+monster_speed = 0.6
 keyX = 1400
 keyY = 550
 key_collected = False
@@ -95,6 +99,8 @@ def map5end():
 def map6win():
     screen.fill((126, 200, 80))
     display_text('You win! Congratulations!', (grey), 600, 540)
+    # Log the win
+    logging.info('Game won')
 
 def map7lose():
     screen.fill((220, 0, 0))
@@ -124,16 +130,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            logging.shutdown()
         # movement controls for player
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                playerX_change = -1
+                playerX_change = -0.8
             if event.key == pygame.K_d:
-                playerX_change = 2
+                playerX_change = 0.8
             if event.key == pygame.K_w:
-                playerY_change = -1
+                playerY_change = -0.8
             if event.key == pygame.K_s:
-                playerY_change = 1
+                playerY_change = 0.8
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a or event.key == pygame.K_d:
                 playerX_change = 0
@@ -274,6 +281,13 @@ while running:
     # map transition code
     current_map = maps_data[current_level]
     current_map()
-
+    if current_level == 5 and game_over == False:
+        logging.info('Win')
+        game_over = True
+        logging.shutdown()
+    if current_level == 6 and game_over == False:
+        logging.info('Loss')
+        game_over = True
+        logging.shutdown()
     crosshair()
     pygame.display.update()
