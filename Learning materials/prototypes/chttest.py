@@ -99,8 +99,6 @@ def map5end():
 def map6win():
     screen.fill((126, 200, 80))
     display_text('You win! Congratulations!', (grey), 600, 540)
-    # Log the win
-    logging.info('Game won')
 
 def map7lose():
     screen.fill((220, 0, 0))
