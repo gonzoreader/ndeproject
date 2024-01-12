@@ -22,7 +22,6 @@ swordImg = pygame.image.load('sword.png')
 keyImg = pygame.image.load('key.png')
 # loading in the monster to be blitted
 monsterImg = pygame.image.load('monster.png')
-bloodImg = pygame.image.load('blood.png')
 # loading in the player to be blitted
 playerImg = pygame.image.load('player.png')
 playerswImg = pygame.image.load('playersw.png')
@@ -96,9 +95,6 @@ def map6win():
     screen.fill((126, 200, 80))
     display_text('You win! Congratulations!', (grey), 600, 540)
 
-def map7lose():
-    screen.fill((220, 0, 0))
-    display_text('You lose! Shrek has eaten you!', (grey), 600, 540)
 
 # setting up map changing with a list and 'current_level' variable
 current_level = 0
@@ -109,7 +105,6 @@ maps_data = [
     map4gate,
     map5end,
     map6win,
-    map7lose,
     # Add more maps as needed
 ]
 
@@ -139,10 +134,9 @@ while running:
                 playerX_change = 0
             if event.key == pygame.K_w or event.key == pygame.K_s:
                 playerY_change = 0
-            
+                
 
 
-    
 
     if current_level == 0:
         # Displaying text on map1
@@ -220,18 +214,6 @@ while running:
         # draw key if not collected
         if not key_collected:
             key(keyX, keyY)
-        if playerX < monsterX + monsterImg.get_width() and \
-       playerX + playerImg.get_width() > monsterX and \
-       playerY < monsterY + monsterImg.get_height() and \
-       playerY + playerImg.get_height() > monsterY:
-            if sword_collected:
-                # Player has the sword, defeat the monster
-                monsterImg = pygame.image.load('blood.png')  # Replace monster image with blood
-                monster_speed = 0
-            else:
-                current_level = 6
-            
-                
     # second map collision
     if current_level == 1:
         if playerX >= 1900:
