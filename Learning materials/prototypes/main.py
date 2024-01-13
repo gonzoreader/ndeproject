@@ -4,7 +4,10 @@ import pygame
 import logging
 
 pygame.init()
-
+# initialize pygame mixer
+pygame.mixer.init()
+# loading mp3 file
+pygame.mixer.music.load('swamp.mp3')
 # Initialize the logging module
 logging.basicConfig(filename='game_log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
 
@@ -12,6 +15,9 @@ black = (0, 0, 0)
 grey = (80, 80, 80)
 game_over = False
 font = pygame.font.Font('Grand9K Pixel.ttf', 36)
+# Load the swamp sound
+swamp_sound = pygame.mixer.Sound('swamp.mp3')
+swamp_sound.set_volume(0.5)
 # creating the screen
 screen = pygame.display.set_mode((1920, 1080))
 # setting the caption and icon
@@ -90,7 +96,6 @@ def map3msr():
     pygame.draw.rect(screen, grey, pygame.Rect(0, 900, 1920, 400))
     pygame.draw.rect(screen, grey, pygame.Rect(0, 0, 1920, 180))
     pygame.draw.rect(screen, grey, pygame.Rect(1720, 0, 200, 1080))
-
 
 def map4gate():
     pygame.draw.rect(screen, grey, pygame.Rect(0, 0, 700, 1080))
@@ -202,6 +207,7 @@ while running:
             playerY = 181
         if playerX >= 1699:
             playerX = 1699
+        swamp_sound.play(0)
         # monster tracking the player
         if playerX > monsterX:
             monsterX += monster_speed
