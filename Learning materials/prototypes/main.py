@@ -4,20 +4,13 @@ import pygame
 import logging
 
 pygame.init()
-# initialize pygame mixer
-pygame.mixer.init()
-# loading mp3 file
-pygame.mixer.music.load('swamp.mp3')
-# Initialize the logging module
+# initializing logging
 logging.basicConfig(filename='game_log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
 
 black = (0, 0, 0)
 grey = (80, 80, 80)
 game_over = False
 font = pygame.font.Font('Grand9K Pixel.ttf', 36)
-# Load the swamp sound
-swamp_sound = pygame.mixer.Sound('swamp.mp3')
-swamp_sound.set_volume(0.5)
 # creating the screen
 screen = pygame.display.set_mode((1920, 1080))
 # setting the caption and icon
@@ -114,7 +107,7 @@ def map6win():
 
 
 def map7lose():
-    screen.fill((220, 0, 0))
+    screen.fill((180, 0, 0))
     display_text('You lose! Shrek has eaten you! Check "game_log.txt" for a record of wins and losses!', grey, 200, 540)
 
 # setting up map changing with a list and 'current_level' variable
@@ -207,7 +200,6 @@ while running:
             playerY = 181
         if playerX >= 1699:
             playerX = 1699
-        swamp_sound.play(0)
         # monster tracking the player
         if playerX > monsterX:
             monsterX += monster_speed
